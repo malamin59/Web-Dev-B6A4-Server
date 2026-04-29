@@ -1,20 +1,17 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+import express, { type Request, type Response } from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+const app = express()
+app.use(cors())
+dotenv.config()
+app.use(express.json())
 
-dotenv.config();
+const port = process.env.PORT || 5000
 
-const app = express();
+app.get('/' , (req :  Request , res : Response) => {
+  res.send(`Skill Bridge running on Port ${port}`)
+})
+app.listen(port , () =>{
+  console.log(`Server running on port on ${port}`)
+})
 
-app.use(cors());
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.send("SkillBridge API is running 🚀");
-});
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
