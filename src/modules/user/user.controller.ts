@@ -5,6 +5,7 @@ import { UserService } from "./user.service";
 const createUser = async (req: Request, res: Response) => {
 try {
   const result = await UserService.createUserInDb(req.body)
+  console.log(result)
   return res.status(201).json({
     success: true,
     data : result
