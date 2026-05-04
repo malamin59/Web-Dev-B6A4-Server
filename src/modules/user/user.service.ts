@@ -3,13 +3,13 @@ import bcrypt from "bcrypt";
 
 const createUserInDb = async (payload: any) => {
   const hashedPassword = await bcrypt.hash(payload.password, 10);
-  // check user already existed in db 
- const existUser = await prisma.user.findUnique({
-  where : {email : payload.email}
- })
- if(existUser) {
-  throw new Error ("user already existed")
- }
+  // check user already existed in db
+  const existUser = await prisma.user.findUnique({
+    where: { email: payload.email },
+  });
+  if (existUser) {
+    throw new Error("user already existed");
+  }
   const result = await prisma.user.create({
     data: {
       name: payload.name,
@@ -28,6 +28,9 @@ const createUserInDb = async (payload: any) => {
   });
   return result;
 };
+
+
+
 
 export const UserService = {
   createUserInDb,
