@@ -4,7 +4,6 @@ import { tutorService } from "./tutor.service";
 const createTutor = async (req: Request, res: Response) => {
   try {
     const result = await tutorService.createTutorProfileInDb(req.body);
-    console.log("Tutor Route Loaded");
     res.status(200).json({
       message: "Tutor profile created successfully",
       data: result,
@@ -19,6 +18,76 @@ const createTutor = async (req: Request, res: Response) => {
   }
 };
 
+const getAllTutors = async (req: Request, res: Response) => {
+  try {
+    const result = await tutorService.getTutorInDb();
+
+    res.status(200).json({
+      message: "Tutor Get successfully!",
+      data: result,
+    });
+    return result;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+const getSingleTutors = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await tutorService.getSingleTutorInDb(id as string);
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+    return result;
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error,
+    });
+  }
+};
+const createAvailability = async (req: Request, res: Response) => {
+  try {
+    const result = await tutorService.createAvailabilityInDb(req.body);
+    res.status(200).json({
+      success: true,
+      message: "Availability create Successfully!",
+      data: result,
+    });
+    return result;
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+const getTutorByUserId = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await tutorService.getTutorByUserIdFromDb(userId as string);
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const tutorController = {
   createTutor,
+  getAllTutors,
+  getSingleTutors,
+  createAvailability,
+  getTutorByUserId,
 };
