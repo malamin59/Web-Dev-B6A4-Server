@@ -13,7 +13,7 @@ export const loginUserInDB = async (payload: any) => {
     }
 
     return {
-      id: user.id,
+      id: user.id,    
       email: user.email,
       name: user.name,
       role: user.role,
@@ -63,5 +63,6 @@ const socialLogin = async (payload: any) => {
 };
 
 export const authService = {
-  socialLogin,
+  loginUserInDB,
+  socialLogin
 };
