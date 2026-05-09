@@ -16,7 +16,24 @@ const createBooking = async (req: Request, res: Response) => {
     });
   }
 };
+const getStudentBooking = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await bookingService.getStudentBookingIntoDb(id as string);
+    res.status(200).json({
+      success: true,
+      message: "Student bookings retrieved successfully!",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 export const bookingController = {
   createBooking,
+  getStudentBooking,
 };

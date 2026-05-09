@@ -7,6 +7,24 @@ const createBookingIntoDb = async (data: any) => {
   return result;
 };
 
+const getStudentBookingIntoDb = async (id: string) => {
+  const result = await prisma.booking.findMany({
+    where: {
+      studentId: id,
+    },
+
+    include: {
+      tutor: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
 export const bookingService = {
   createBookingIntoDb,
+  getStudentBookingIntoDb,
 };
