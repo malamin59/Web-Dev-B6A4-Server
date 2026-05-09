@@ -4,6 +4,7 @@ import cors from "cors";
 import userRoute from "./modules/user/user.route";
 import authRouter from "./modules/auth/auth.route";
 import tutorRoute from "./modules/tutor/tutor.route";
+import bookingRoute from "./modules/booking/booking.route";
 
 dotenv.config();
 const app = express();
@@ -13,5 +14,6 @@ app.use(express.json());
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/tutor", tutorRoute);
+app.use("/api/v1/bookings", bookingRoute);
 
 export default app;
