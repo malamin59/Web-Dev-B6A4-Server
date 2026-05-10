@@ -5,7 +5,9 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon src/server.ts",
+    "postinstall": "prisma generate",
+    "build": "prisma generate && next build"
   },
   "keywords": [],
   "author": "",
