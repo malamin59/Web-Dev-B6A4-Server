@@ -33,7 +33,18 @@ const getStudentBooking = async (req: Request, res: Response) => {
   }
 };
 
+const getTutorBooking = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await bookingService.getTutorBookingsIntoDb(id as string);
+
+  res.json({
+    success: true,
+    data: result,
+  });
+};
+
 export const bookingController = {
   createBooking,
   getStudentBooking,
+  getTutorBooking
 };
