@@ -1,11 +1,11 @@
 import { prisma } from "../../../lib/prisma";
 
 const createBookingIntoDb = async (data: any) => {
-  const { studentId, tutor } = data;
+  const { studentId, tutorId } = data;
   const existing = await prisma.booking.findFirst({
     where: {
       studentId,
-      tutor,
+      tutorId,
     },
   });
   if (existing) {
@@ -36,33 +36,31 @@ const getStudentBookingIntoDb = async (id: string) => {
   return result;
 };
 
-const getTutorBookingsIntoDb =
-  async (tutorId: string) => {
+const getTutorBookingsIntoDb = async (userId: string) => {
+  const tutor = await prisma.tutorProfile.findFirst({
+    where: {
+      userId: userId,
+    },
+  });
 
-    const result =
-      await prisma.booking.findMany({
+  if (!tutor) {
+    throw new Error("Tutor not found");
+  }
 
-        where: {
-          tutorId: tutorId,
-        },
-
-        include: {
-
-          student: true,
-
-          tutor: {
-            include: {
-              user: true,
-            },
-          },
-        },
-      });
-
-    return result;
+  const bookings = await prisma.booking.findMany({
+    where: {
+      tutorId: tutor.id,
+    },
+    include: {
+      student: true,
+    },
+  });
+  console.log("bookings data is here -->",bookings)
+  return bookings;
 };
 
 export const bookingService = {
   createBookingIntoDb,
   getStudentBookingIntoDb,
-  getTutorBookingsIntoDb
+  getTutorBookingsIntoDb,
 };
