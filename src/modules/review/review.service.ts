@@ -26,14 +26,29 @@ const getMyReviewsInDb = async (userId: string) => {
     where: {
       reviewerId: userId,
     },
-    include :{
+    include: {
       reviewedUser: true,
-    }
+    },
   });
-  return result
+  return result;
+};
+
+const getTutorReviewsFromDb = async (tutorUserId: string) => {
+  return await prisma.review.findMany({
+    where: {
+      reviewedUserId: tutorUserId,
+    },
+    include: {
+      reviewer: true, 
+    },  
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 };
 
 export const reviewService = {
   createReviewIntoDb,
-  getMyReviewsInDb
+  getMyReviewsInDb,
+  getTutorReviewsFromDb,
 };
