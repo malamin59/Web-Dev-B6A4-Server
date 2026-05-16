@@ -45,19 +45,38 @@ const createAvailabilityInDb = async (data: any) => {
   return result;
 };
 
-const getTutorByUserIdFromDb  = async (userId: string) =>{
-const result = await prisma.tutorProfile.findUnique({
-  where :{
-    userId
-  }
-})
-return result
-}
+const getTutorByUserIdFromDb = async (userId: string) => {
+  const result = await prisma.tutorProfile.findUnique({
+    where: {
+      userId,
+    },
+  });
+  return result;
+};
+
+// UPDATE TUTOR PFILE
+const updateTutorProfileInDb = async ( id: string , data: any,) => {
+  const result = await prisma.tutorProfile.update({
+    where: {
+      id,
+    },
+    data: {
+      bio: data.bio,
+      expertise: data.expertise,
+      hourlyRate: Number(data.hourlyRate),
+    },
+    include: {
+      user: true,
+    },
+  });
+  return result;
+};
 
 export const tutorService = {
   createTutorProfileInDb,
   getTutorInDb,
   getSingleTutorInDb,
   createAvailabilityInDb,
-  getTutorByUserIdFromDb
+  getTutorByUserIdFromDb,
+  updateTutorProfileInDb,
 };

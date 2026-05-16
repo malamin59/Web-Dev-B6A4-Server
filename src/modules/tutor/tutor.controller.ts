@@ -36,6 +36,7 @@ const getAllTutors = async (req: Request, res: Response) => {
   }
 };
 const getSingleTutors = async (req: Request, res: Response) => {
+  console.log("GET TUTOR FUNCTION CALL---------->>>>");
   const { id } = req.params;
   try {
     const result = await tutorService.getSingleTutorInDb(id as string);
@@ -44,7 +45,8 @@ const getSingleTutors = async (req: Request, res: Response) => {
       data: result,
     });
     return result;
-  } catch (error) {
+  } catch (error: any) {
+    console.log(error.message);
     res.status(500).json({
       success: false,
       message: "Something went wrong",
@@ -84,10 +86,33 @@ const getTutorByUserId = async (req: Request, res: Response) => {
   }
 };
 
+const updateTutorProfile = async (req: Request, res: Response) => {
+  console.log("Tutor Profile Update Function Called from controller ");
+  try {
+    const { id } = req.params;
+    const result = await tutorService.updateTutorProfileInDb(
+      id as string,
+      req.body,
+    );
+    res.json({
+      success: true,
+      message: "Tutor profile updated successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    console.log("Error Message From Update Profile Controller", error.message);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 export const tutorController = {
   createTutor,
   getAllTutors,
   getSingleTutors,
   createAvailability,
   getTutorByUserId,
+  updateTutorProfile,
 };
