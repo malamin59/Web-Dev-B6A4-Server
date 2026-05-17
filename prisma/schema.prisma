@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  name     String
+  phone    String?
+  password String?
+  provider Provider @default(credentials)
+
+  createdAt DateTime @default(now())
+  role      Role
+
+  bookings Booking[] @relation("StudentBookings")
+
+  tutor TutorProfile?
+
+  reviewsGiven    Review[] @relation("Reviewer")
+  reviewsReceived Review[] @relation("ReviewedUser")
+}
+
+model TutorProfile {
+  id         String  @id @default(uuid())
+  userId     String  @unique
+  bio        String?
+  expertise  String
+  hourlyRate Float
+
+  availability Availability[]
+
+  bookings Booking[] @relation("TutorBookings")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Availability {
+  id        String       @id @default(uuid())
+  tutorId   String
+  day       String
+  startTime String
+  endTime   String
+  tutor     TutorProfile @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  studentId String
+  tutorId   String
+  date      DateTime
+  status    BookingStatus @default(PENDING)
+  student   User          @relation("StudentBookings", fields: [studentId], references: [id])
+  tutor     TutorProfile  @relation("TutorBookings", fields: [tutorId], references: [id])
+}
+
+model Review {
+  id String @id @default(uuid())
+
+  rating  Int
+  comment String
+
+  reviewerId     String
+  reviewedUserId String
+
+  reviewer User @relation("Reviewer",fields: [reviewerId],references: [id]  )
+
+  reviewedUser User @relation(    "ReviewedUser",    fields: [reviewedUserId],references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([reviewerId, reviewedUserId])
+}
+enum Role {
+  STUDENT
+  TUTOR
+  ADMIN
+}
+
+enum Provider {
+  google
+  github
+  credentials
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+  
