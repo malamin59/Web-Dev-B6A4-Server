@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
     "postinstall": "prisma generate",
-    "build": "next build"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

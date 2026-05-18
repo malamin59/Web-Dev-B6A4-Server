@@ -1,6 +1,21 @@
 import { Request, Response } from "express";
 import { bookingService } from "./booking.service";
 
+const getAllBookingInDb = async (req: Request, res: Response) => {
+  try {
+    const result = await bookingService.getAllBookingInDb();
+    res.status(200).json({
+      success: true,
+      message: "Booking get successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 const createBooking = async (req: Request, res: Response) => {
   try {
     const result = await bookingService.createBookingIntoDb(req.body);
@@ -54,4 +69,5 @@ export const bookingController = {
   createBooking,
   getStudentBooking,
   getTutorBooking,
+  getAllBookingInDb
 };

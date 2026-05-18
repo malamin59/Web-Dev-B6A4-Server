@@ -6,8 +6,10 @@ const port = process.env.PORT || 5000;
 app.get("/", (req: Request, res: Response) => {
   res.send(`Skill Bridge running on Port ${port}`);
 });
-// app.listen(port, () => {
-//   console.log(`Server running on port on ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server running on port on ${port}`);
+});
+console.log(process.env.DATABASE_URL);
+console.log(process.env.PORT);
   
 export default app

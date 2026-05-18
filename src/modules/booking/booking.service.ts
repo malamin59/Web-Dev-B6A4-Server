@@ -1,5 +1,20 @@
 import { prisma } from "../../../lib/prisma";
 
+const getAllBookingInDb = async () => {
+  const result = await prisma.booking.findMany({
+    include: {
+      student: true,
+      tutor: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
+
+  return result;
+};
+
 const createBookingIntoDb = async (data: any) => {
   const { studentId, tutorId } = data;
   const existing = await prisma.booking.findFirst({
@@ -55,11 +70,12 @@ const getTutorBookingsIntoDb = async (userId: string) => {
       student: true,
     },
   });
-  console.log("bookings data is here -->",bookings)
+  console.log("bookings data is here -->", bookings);
   return bookings;
 };
 
 export const bookingService = {
+  getAllBookingInDb,
   createBookingIntoDb,
   getStudentBookingIntoDb,
   getTutorBookingsIntoDb,
