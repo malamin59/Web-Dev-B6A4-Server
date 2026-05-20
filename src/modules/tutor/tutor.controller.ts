@@ -35,6 +35,12 @@ const getAllTutors = async (req: Request, res: Response) => {
     });
   }
 };
+
+
+
+
+
+
 const getSingleTutors = async (req: Request, res: Response) => {
   console.log("GET TUTOR FUNCTION CALL---------->>>>");
   const { id } = req.params;
