@@ -1,5 +1,44 @@
 import { prisma } from "../../../lib/prisma";
 
+const createBookingIntoDb = async (data: any) => {
+  const { studentId, tutorId, date } = data;
+
+  // 1. check duplicate booking
+  const existing = await prisma.booking.findFirst({
+    where: {
+      studentId,
+      tutorId,
+    },
+  });
+
+  if (existing) {
+    throw new Error("You already booked this tutor");
+  }
+
+  // 2. check tutor exists
+  const tutor = await prisma.tutorProfile.findUnique({
+    where: { id: tutorId },
+  });
+
+  if (!tutor) {
+    throw new Error("Tutor not found");
+  }
+
+  // 3. create booking
+  const booking = await prisma.booking.create({
+    data: {
+      studentId,
+      tutorId,
+      date,
+      amount: tutor.hourlyRate,
+      status: "PENDING",
+      paymentStatus: "PENDING",
+    },
+  });
+
+  return booking;
+};
+
 const getAllBookingInDb = async () => {
   const result = await prisma.booking.findMany({
     include: {
@@ -12,24 +51,6 @@ const getAllBookingInDb = async () => {
     },
   });
 
-  return result;
-};
-
-const createBookingIntoDb = async (data: any) => {
-  const { studentId, tutorId } = data;
-  const existing = await prisma.booking.findFirst({
-    where: {
-      studentId,
-      tutorId,
-    },
-  });
-  if (existing) {
-    throw new Error("you already booking the tutor");
-  }
-
-  const result = await prisma.booking.create({
-    data,
-  });
   return result;
 };
 
@@ -70,13 +91,12 @@ const getTutorBookingsIntoDb = async (userId: string) => {
       student: true,
     },
   });
-  console.log("bookings data is here -->", bookings);
   return bookings;
 };
 
 export const bookingService = {
-  getAllBookingInDb,
   createBookingIntoDb,
+  getAllBookingInDb,
   getStudentBookingIntoDb,
   getTutorBookingsIntoDb,
 };

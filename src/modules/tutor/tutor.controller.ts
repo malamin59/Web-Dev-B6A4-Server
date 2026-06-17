@@ -42,7 +42,6 @@ const getAllTutors = async (req: Request, res: Response) => {
 
 
 const getSingleTutors = async (req: Request, res: Response) => {
-  console.log("GET TUTOR FUNCTION CALL---------->>>>");
   const { id } = req.params;
   try {
     const result = await tutorService.getSingleTutorInDb(id as string);

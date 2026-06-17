@@ -1,4 +1,17 @@
 # Goal: Implement Stripe Payment System in SkillBridge
+User Click Book Session
+        ↓
+Checkout Page (/checkout/tutorId)
+        ↓
+Payment Intent তৈরি হবে
+        ↓
+Stripe Card দিয়ে Payment
+        ↓
+Payment সফল হলে
+        ↓
+Backend verify করবে
+        ↓
+তারপর Booking তৈরি হবে
 
 ## Phase 1: Database & Prisma
 
