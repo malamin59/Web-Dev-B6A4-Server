@@ -1,0 +1,165 @@
+# Goal: Implement Stripe Payment System in SkillBridge
+
+## Phase 1: Database & Prisma
+
+### Booking Model Update
+
+* [Done] Add `amount` field to Booking model
+* [Done] Add `paymentStatus` field to Booking model
+* [Done] Update `BookingStatus` enum if needed
+
+### Payment Model
+
+* [Done] Create Payment model
+* [Done] Add `transactionId`
+* [Done] Add `amount`
+* [Done] Add `status`
+* [Dashboard] Create relation between Booking and Payment
+
+### Database Migration
+
+* [Done] Run Prisma migration
+* [Done] Verify tables in database
+* [Done] Seed test data if necessary
+    
+---
+
+## Phase 2: Stripe Backend Setup
+
+### Installation
+
+* [Done] Install Stripe package
+* [Done] Configure Stripe Secret Key
+* [Done] Configure Stripe Webhook Secret
+
+### Stripe Configuration
+
+* [Done] Create Stripe instance
+* [Done] Create payment utility/service
+
+---
+
+## Phase 3: Payment Module
+
+### Module Structure
+
+* [] Create Payment Module
+* [] Create Payment Controller
+* [] Create Payment Service
+* [] Create Payment Routes
+
+### Create Payment Intent API
+
+* [] Validate booking existence
+* [] Validate student ownership
+* [] Calculate payment amount
+* [] Create Stripe Payment Intent
+* [] Store bookingId in metadata
+* [] Return clientSecret
+
+---
+
+## Phase 4: Stripe Webhook
+
+### Webhook Endpoint
+
+* [] Create webhook route
+* [] Verify Stripe signature
+* [] Handle payment_intent.succeeded
+* [] Handle payment_intent.payment_failed
+
+### Database Update
+
+* [] Create Payment record
+* [] Update Booking.paymentStatus
+* [] Update Booking.status
+* [] Store transactionId
+
+---
+
+## Phase 5: Frontend Setup
+
+### Stripe Installation
+
+* [] Install @stripe/stripe-js
+* [] Install @stripe/react-stripe-js
+
+### Payment Page
+
+* [] Create Checkout Page
+* [] Configure Stripe Elements
+* [] Create Card Form
+
+### Payment Submission
+
+* [] Fetch clientSecret
+* [] Confirm payment
+* [] Handle success state
+* [] Handle failure state
+
+---
+
+## Phase 6: Booking Flow Update
+
+### Student Flow
+
+* [] Student creates booking
+* [] Booking created with PENDING status
+* [] Redirect to payment page
+* [] Complete payment
+* [] Booking becomes CONFIRMED
+
+---
+
+## Phase 7: Dashboard Features
+
+### Student Dashboard
+
+* [] Show payment status
+* [] Show transaction history
+* [] Show booked sessions
+
+### Tutor Dashboard
+
+* [] View paid bookings
+* [] View confirmed sessions
+
+### Admin Dashboard
+
+* [] Total revenue
+* [] Total payments
+* [] Recent transactions
+
+---
+
+## Phase 8: Testing
+
+### Stripe CLI
+
+* [] Login Stripe CLI
+* [] Start webhook listener
+* [] Test successful payment
+* [] Test failed payment
+
+### Edge Cases
+
+* [] Invalid booking
+* [] Duplicate payment
+* [] Webhook retry
+* [] Unauthorized access
+
+---
+
+## Phase 9: Production Ready
+
+### Security
+
+* [] Never trust frontend payment status
+* [] Update database only from webhook
+* [] Protect payment routes
+
+### Deployment
+
+* [] Add production Stripe keys
+* [] Configure production webhook
+* [] Verify end-to-end payment flow

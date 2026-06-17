@@ -8,6 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "postinstall": "prisma generate",
     "build": "tsc",
+    "stripe:webhook": "stripe listen --forward-to localhost:5000/webhook",
     "start": "node dist/server.js"
   },
   "keywords": [],
@@ -22,7 +23,8 @@
     "dotenv": "^17.4.1",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.20.0"
+    "pg": "^8.20.0",
+    "stripe": "^22.2.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

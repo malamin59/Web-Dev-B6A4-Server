@@ -4,7 +4,6 @@
   const createUserInDb = async (payload: any) => {
     const hashedPassword = await bcrypt.hash(payload.password, 10);
 
-      console.log("ROLE FROM FRONTEND:", payload.role);
     // check user already existed in db
     const existUser = await prisma.user.findUnique({
       where: { email: payload.email },
@@ -30,11 +29,13 @@
       },
     });
     return result;
+
+    
   };
 
 
 
 
-  export const UserService = {
+  export const   UserService = {
     createUserInDb,
   };

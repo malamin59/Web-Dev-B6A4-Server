@@ -13,21 +13,19 @@ export const loginUserInDB = async (payload: any) => {
     }
 
     return {
-      id: user.id,    
+      id: user.id,
       email: user.email,
       name: user.name,
       role: user.role,
     };
+    
   } catch (error: any) {
     throw new Error(error.message || "Login failed");
   }
 };
 
-
-
-
 const socialLogin = async (payload: any) => {
-  const { name, email,  provider } = payload;
+  const { name, email, provider } = payload;
 
   let user = await prisma.user.findUnique({
     where: { email },
@@ -53,9 +51,8 @@ const socialLogin = async (payload: any) => {
       role: user.role,
     },
     process.env.JWT_SECRET as string,
-    { expiresIn: "7d" }
+    { expiresIn: "7d" },
   );
-
   return {
     user,
     accessToken,
@@ -64,5 +61,5 @@ const socialLogin = async (payload: any) => {
 
 export const authService = {
   loginUserInDB,
-  socialLogin
+  socialLogin,
 };

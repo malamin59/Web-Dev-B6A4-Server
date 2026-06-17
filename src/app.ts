@@ -7,9 +7,10 @@ import tutorRoute from "./modules/tutor/tutor.route";
 import bookingRoute from "./modules/booking/booking.route";
 import reviewRoute from "./modules/review/review.route";
 import adminRoute from "./modules/admin/admin.route";
+import { PaymentRoutes } from "./modules/payment/payment.route";
 
 dotenv.config();
-const app =  express();
+const app = express();
 app.use(cors());
 app.use(express.json());
 
@@ -19,5 +20,6 @@ app.use("/api/v1/tutor", tutorRoute);
 app.use("/api/v1/bookings", bookingRoute);
 app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/payments", PaymentRoutes);
 
 export default app;

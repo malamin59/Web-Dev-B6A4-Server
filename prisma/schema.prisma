@@ -6,6 +6,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
 model User {
   id       String   @id @default(uuid())
   email    String   @unique
@@ -54,8 +61,30 @@ model Booking {
   tutorId   String
   date      DateTime
   status    BookingStatus @default(PENDING)
-  student   User          @relation("StudentBookings", fields: [studentId], references: [id])
-  tutor     TutorProfile  @relation("TutorBookings", fields: [tutorId], references: [id])
+  amount    Float
+
+  paymentStatus PaymentStatus @default(PENDING)
+  student       User          @relation("StudentBookings", fields: [studentId], references: [id])
+  tutor         TutorProfile  @relation("TutorBookings", fields: [tutorId], references: [id])
+  payment       Payment?
+}
+
+model Payment {
+  id String @id @default(uuid())
+
+  bookingId String @unique
+
+  amount Float
+
+  transactionId String @unique
+
+  paymentMethod String?
+
+  status PaymentStatus
+
+  createdAt DateTime @default(now())
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
 }
 
 model Review {
@@ -67,14 +96,15 @@ model Review {
   reviewerId     String
   reviewedUserId String
 
-  reviewer User @relation("Reviewer",fields: [reviewerId],references: [id]  )
+  reviewer User @relation("Reviewer", fields: [reviewerId], references: [id])
 
-  reviewedUser User @relation(    "ReviewedUser",    fields: [reviewedUserId],references: [id])
+  reviewedUser User @relation("ReviewedUser", fields: [reviewedUserId], references: [id])
 
   createdAt DateTime @default(now())
 
   @@unique([reviewerId, reviewedUserId])
 }
+
 enum Role {
   STUDENT
   TUTOR
@@ -90,6 +120,6 @@ enum Provider {
 enum BookingStatus {
   PENDING
   CONFIRMED
+  COMPLETED
   CANCELLED
 }
-  

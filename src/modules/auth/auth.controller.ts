@@ -1,32 +1,26 @@
 import { authService } from "./auth.service";
 import { Request, Response } from "express";
 
-
-
-export const loginUser = async(req : Request , res: Response) =>{
+export const loginUser = async (req: Request, res: Response) => {
   try {
-
-    const user = await  authService.loginUserInDB(req.body)
-    console.log("data come from auth controller page ",user)
+    const user = await authService.loginUserInDB(req.body);
+    console.log("data come from auth controller page ", user);
     return res.status(200).json({
-        success : true,
-        data : {user}
-    })
-    
-} catch (error: any) {
+      success: true,
+      data: { user },
+    });
+  } catch (error: any) {
     return res.status(400).json({
       success: false,
-      message: error.message, 
+      message: error.message,
     });
   }
-}
-
-
+};
 
 const socialLogin = async (req: Request, res: Response) => {
   try {
     const result = await authService.socialLogin(req.body);
-console.log("SOCIAL LOGIN USER DATA'S ------------>>>",result)
+    console.log("SOCIAL LOGIN USER DATA'S ------------>>>", result);
     res.json({
       success: true,
       data: result,
