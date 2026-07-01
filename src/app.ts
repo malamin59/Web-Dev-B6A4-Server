@@ -1,14 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import userRoute from "./modules/user/user.route";
-import authRouter from "./modules/auth/auth.route";
-import tutorRoute from "./modules/tutor/tutor.route";
-import bookingRoute from "./modules/booking/booking.route";
-import reviewRoute from "./modules/review/review.route";
-import adminRoute from "./modules/admin/admin.route";
-import { PaymentRoutes } from "./modules/payment/payment.route";
-
+import userRoute from "./modules/user/user.route.js";
+import authRouter from "./modules/auth/auth.route.js";
+import tutorRoute from "./modules/tutor/tutor.route.js";
+import bookingRoute from "./modules/booking/booking.route.js";
+import reviewRoute from "./modules/review/review.route.js";
+import adminRoute from "./modules/admin/admin.route.js";
+import { PaymentRoutes } from "./modules/payment/payment.route.js";
 dotenv.config();
 const app = express();
 app.use(cors());

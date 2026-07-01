@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma.js";
 
 const createBookingIntoDb = async (data: any) => {
   const { studentId, tutorId, date } = data;

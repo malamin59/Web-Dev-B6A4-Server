@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { PaymentService } from "./payment.service";
+import { PaymentService } from "./payment.service.js";
 
 const createPaymentIntent = async (req: Request, res: Response) => {
   try {

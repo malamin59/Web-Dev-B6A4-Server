@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma.js";
 
 const createTutorProfileInDb = async (data: any) => {
   const existingTutor = await prisma.tutorProfile.findUnique({

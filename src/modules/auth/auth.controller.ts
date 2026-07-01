@@ -1,4 +1,4 @@
-import { authService } from "./auth.service";
+import { authService } from "./auth.service.js";
 import { Request, Response } from "express";
 
 export const loginUser = async (req: Request, res: Response) => {

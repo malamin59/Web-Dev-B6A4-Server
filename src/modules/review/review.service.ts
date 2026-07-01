@@ -1,4 +1,4 @@
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../lib/prisma.js";
 
 const createReviewIntoDb = async (data: any) => {
   const { reviewerId, reviewedUserId } = data;

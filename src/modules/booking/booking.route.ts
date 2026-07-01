@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { bookingController } from "./booking.controller";
+import { bookingController } from "./booking.controller.js";
 
 const bookingRoute = Router();
 bookingRoute.post("/", bookingController.createBooking);
