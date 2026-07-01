@@ -19,7 +19,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/tutor", tutorRoute);
 app.use("/api/v1/bookings", bookingRoute);
 app.use("/api/v1/reviews", reviewRoute);
-app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/admin",     adminRoute);
 app.use("/api/v1/payments", PaymentRoutes);
 
 export default app;
