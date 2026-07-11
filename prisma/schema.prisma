@@ -28,8 +28,19 @@ model User {
 
   tutor TutorProfile?
 
-  reviewsGiven    Review[] @relation("Reviewer")
-  reviewsReceived Review[] @relation("ReviewedUser")
+  reviewsGiven    Review[]     @relation("Reviewer")
+  reviewsReceived Review[]     @relation("ReviewedUser")
+  userReviews     UserReview[]
+}
+
+model UserReview {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model TutorProfile {
