@@ -17,14 +17,53 @@ const createTutorProfileInDb = async (data: any) => {
   return result;
 };
 
-const getTutorInDb = async () => {
-  const result = await prisma.tutorProfile.findMany({
+
+
+const getTutorInDb = async (
+  search?: string,
+  rate?: number
+) => {
+  return prisma.tutorProfile.findMany({
+    where: {
+      AND: [
+        search
+          ? {
+              OR: [
+                {
+                  expertise: {
+                    contains: search,
+                    mode: "insensitive",
+                  },
+                },
+                {
+                  user: {
+                    name: {
+                      contains: search,
+                      mode: "insensitive",
+                    },
+                  },
+                },
+              ],
+            }
+          : {},
+
+        rate !== undefined
+          ? {
+              hourlyRate: {
+                gte: rate,
+              },
+            }
+          : {},
+      ],
+    },
     include: {
       user: true,
     },
   });
-  return result;
 };
+
+
+
 const getSingleTutorInDb = async (id: string) => {
   const result = await prisma.tutorProfile.findUnique({
     where: {
@@ -37,6 +76,8 @@ const getSingleTutorInDb = async (id: string) => {
   });
   return result;
 };
+
+
 
 const createAvailabilityInDb = async (data: any) => {
   const result = await prisma.availability.create({

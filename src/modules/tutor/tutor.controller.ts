@@ -20,13 +20,18 @@ const createTutor = async (req: Request, res: Response) => {
 
 const getAllTutors = async (req: Request, res: Response) => {
   try {
-    const result = await tutorService.getTutorInDb();
+    const search = req.query.search as string | undefined;
+    const rate = req.query.rate
+      ? Number(req.query.rate)
+      : undefined;
+
+    const result = await tutorService.getTutorInDb(search, rate);
 
     res.status(200).json({
-      message: "Tutor Get successfully!",
+      success: true,
+      message: "Tutors retrieved successfully!",
       data: result,
     });
-    return result;
   } catch (error) {
     res.status(500).json({
       success: false,
