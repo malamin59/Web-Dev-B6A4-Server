@@ -5,7 +5,6 @@ import catchAsync from "../../utils/catchAsync.js";
 
 const createUserReview = catchAsync(async (req: Request, res: Response) => {
   const result = await userReviewService.createUserReviewInDb(req.body);
-  console.log("data form user review page --->>", result);
   res.status(201).json({
     success: true,
     message: "Review submitted successfully",
@@ -13,6 +12,17 @@ const createUserReview = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllUserReviews = catchAsync(async (req: Request, res: Response) => {
+  const result = await userReviewService.getAllUserReviews();
+
+  res.status(200).json({
+    success: true,
+    message: "User Review retrieved Successfully!",
+    data: result,
+  });
+});
+
 export const UserReviewController = {
   createUserReview,
+  getAllUserReviews,
 };
