@@ -71,9 +71,9 @@ model Booking {
   studentId String
   tutorId   String
   date      DateTime
+  createdAt DateTime @default(now())
   status    BookingStatus @default(PENDING)
   amount    Float
-
   paymentStatus PaymentStatus @default(PENDING)
   student       User          @relation("StudentBookings", fields: [studentId], references: [id])
   tutor         TutorProfile  @relation("TutorBookings", fields: [tutorId], references: [id])
