@@ -1,6 +1,9 @@
 import { prisma } from "../../../lib/prisma.js";
+import { NotificationService } from "../notification/notification.service.js";
 
+// throw new Error("TEST");
 const createBookingIntoDb = async (data: any) => {
+   console.log("=== createBookingIntoDb called ===");
   const { studentId, tutorId, date } = data;
 
   // 1. check duplicate booking
@@ -35,7 +38,18 @@ const createBookingIntoDb = async (data: any) => {
       paymentStatus: "PENDING",
     },
   });
+  console.log("Before notification");
 
+  /* AFTER CREATED BOOKING SEND NOTIFICATION */
+  await NotificationService.createNotification({
+    receiverId: tutor.userId,
+    senderId: studentId,
+    title: "New Booking Request",
+    message: "A student has requested a new booking.",
+    type: "BOOKING",
+    link: "/dashboard/tutor/bookings",
+  });
+  console.log("After notification");
   return booking;
 };
 

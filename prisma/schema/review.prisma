@@ -1,0 +1,17 @@
+model Review {
+  id String @id @default(uuid())
+
+  rating  Int
+  comment String
+
+  reviewerId     String
+  reviewedUserId String
+
+  reviewer User @relation("Reviewer", fields: [reviewerId], references: [id])
+
+  reviewedUser User @relation("ReviewedUser", fields: [reviewedUserId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@unique([reviewerId, reviewedUserId])
+}

@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { reviewService } from "./review.service.js";
 
 const createReview = async (req: Request, res: Response) => {
-    console.log("controller hit");
+    // console.log("controller hit");
   try {
     const result = await reviewService.createReviewIntoDb(req.body);
-    console.log("review data here", result);
+    // console.log("review data here", result);
     res.status(201).json({
       success: true,
       message: "Review created successfully",

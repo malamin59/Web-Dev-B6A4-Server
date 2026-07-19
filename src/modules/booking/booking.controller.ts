@@ -3,6 +3,7 @@ import { bookingService } from "./booking.service.js";
 /* CREATE BOOKING WITH PAYMENT */
 
 const createBooking = async (req: Request, res: Response) => {
+  
   try {
     if (!req.body.studentId || !req.body.tutorId || !req.body.date) {
       return res.status(400).json({
@@ -11,6 +12,7 @@ const createBooking = async (req: Request, res: Response) => {
       });
     }
     const result = await bookingService.createBookingIntoDb(req.body);
+    console.log("Booking result in here -->", result);
     return res.status(201).json({
       success: true,
       message: "Booking created successfully",

@@ -1,0 +1,33 @@
+enum Role {
+  STUDENT
+  TUTOR
+  ADMIN
+}
+
+enum Provider {
+  google
+  github
+  credentials
+}
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum NotificationType {
+  BOOKING
+  MESSAGE
+  REVIEW
+  PAYMENT
+  SYSTEM
+  ADMIN
+}

@@ -3,7 +3,7 @@ import { PaymentService } from "./payment.service.js";
 
 const createPaymentIntent = async (req: Request, res: Response) => {
   try {
-    console.log("body data here ---->",req.body);
+    // console.log("body data here ---->",req.body);
     const { studentId, tutorId } = req.body;
     // console.log("StudentId  ------>", studentId);
     // console.log("tutorId ------>", tutorId);
@@ -19,7 +19,7 @@ const createPaymentIntent = async (req: Request, res: Response) => {
       tutorId,
     });
 
-    console.log("Payment result ---->", result);
+    // console.log("Payment result ---->", result);
 
     return res.status(200).json({
       success: true,

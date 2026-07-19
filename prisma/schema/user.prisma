@@ -1,0 +1,21 @@
+model User {
+  id       String   @id @default(uuid())
+  email    String   @unique
+  name     String
+  phone    String?
+  password String?
+  provider Provider @default(credentials)
+
+  createdAt DateTime @default(now())
+  role      Role
+
+  bookings Booking[] @relation("StudentBookings")
+
+  tutor TutorProfile?
+
+  reviewsGiven      Review[]       @relation("Reviewer")
+  reviewsReceived   Review[]       @relation("ReviewedUser")
+  userReviews       UserReview[]
+  notifications     Notification[] @relation("UserNotifications")
+  sentNotifications Notification[] @relation("UserSentNotifications")
+}

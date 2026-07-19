@@ -6,6 +6,7 @@ import { skillBridgeKnowledge } from "./skillBridgeKnowledge .js";
 export const chat = async (req: Request, res: Response) => {
   try {
     const { message } = req.body;
+    console.log("user message -->", message);
     const prompt = `${systemPrompt} ${skillBridgeKnowledge} User Question: ${message}`;
 
     const response = await ai.models.generateContent({

@@ -1,0 +1,13 @@
+model TutorProfile {
+  id         String  @id @default(uuid())
+  userId     String  @unique
+  bio        String?
+  expertise  String
+  hourlyRate Float
+
+  availability Availability[]
+
+  bookings Booking[] @relation("TutorBookings")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

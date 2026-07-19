@@ -1,0 +1,35 @@
+
+
+model Notification {
+  id        String            @id @default(cuid())
+
+  receiverId String
+  receiver   User             @relation("UserNotifications", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  senderId String?
+  sender   User?              @relation("UserSentNotifications", fields: [senderId], references: [id], onDelete: SetNull)
+
+  // Notification Content
+  title     String
+  message   String
+
+  // Category
+  type      NotificationType
+
+  // Navigation
+  link      String?
+
+  // Extra data (bookingId, reviewId, etc.)
+  metadata  Json?
+
+
+  isRead    Boolean           @default(false)
+
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@index([receiverId])
+  @@index([isRead])
+  @@index([createdAt])
+  @@index([receiverId, isRead])
+}

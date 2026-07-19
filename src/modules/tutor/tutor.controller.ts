@@ -97,7 +97,7 @@ const getTutorByUserId = async (req: Request, res: Response) => {
 };
 
 const updateTutorProfile = async (req: Request, res: Response) => {
-  console.log("Tutor Profile Update Function Called from controller ");
+  // console.log("Tutor Profile Update Function Called from controller ");
   try {
     const { id } = req.params;
     const result = await tutorService.updateTutorProfileInDb(

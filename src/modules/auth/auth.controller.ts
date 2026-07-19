@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const user = await authService.loginUserInDB(req.body);
-    console.log("data come from auth controller page ", user);
+    // console.log("data come from auth controller page ", user);
     return res.status(200).json({
       success: true,
       data: { user },
