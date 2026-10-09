@@ -19,6 +19,39 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 
+
+const verifyEmail = async (req: Request, res: Response) => {
+  try {
+    const { email, otp } = req.body;
+
+    if (
+      typeof email !== "string" ||
+      typeof otp !== "string"
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and OTP are required",
+      });
+    }
+
+    const result = await UserService.verifyEmail(email, otp);
+
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    console.error(error);
+
+    return res.status(400).json({
+      success: false,
+      message: error.message || "Email verification failed",
+    });
+  }
+};
+
+
 export const userController = {
   createUser,
+  verifyEmail,
 };

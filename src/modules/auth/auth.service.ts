@@ -12,13 +12,17 @@ export const loginUserInDB = async (payload: any) => {
       throw new Error("email not fount");
     }
 
+    /* VERIFY EMAIL */
+    if (!user.emailVerified) {
+      throw new Error("Please verify your email first");
+    }
+    
     return {
       id: user.id,
       email: user.email,
       name: user.name,
       role: user.role,
     };
-    
   } catch (error: any) {
     throw new Error(error.message || "Login failed");
   }

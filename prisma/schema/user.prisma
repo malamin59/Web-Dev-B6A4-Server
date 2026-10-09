@@ -5,7 +5,9 @@ model User {
   phone    String?
   password String?
   provider Provider @default(credentials)
-
+  emailVerified Boolean   @default(false)
+  verifyToken   String?   @unique
+  verifyExpires DateTime?
   createdAt DateTime @default(now())
   role      Role
 
